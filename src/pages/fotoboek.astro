@@ -1,0 +1,370 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+// Formaten, stijlen en vanaf-prijzen volgen het fotoboek in app.remoria.eu.
+const formats = [
+  {
+    name: 'Vierkant',
+    size: '21 × 21 cm',
+    price: '€28,95',
+    desc: 'Compact en evenwichtig — ideaal als je vooral portretten en losse momenten wilt bundelen.',
+    shape: 'square',
+  },
+  {
+    name: 'Rechthoekig',
+    size: '29,7 × 21 cm · liggend',
+    price: '€28,95',
+    desc: 'Meer breedte op elke pagina — geschikt als je foto\'s groter wilt tonen. Meest gekozen voor een klassiek herinneringsboek.',
+    shape: 'landscape',
+  },
+  {
+    name: 'Layflat',
+    size: '29,7 × 21 cm · liggend',
+    price: '€38,74',
+    desc: 'Premium binding: pagina\'s liggen plat open — perfect voor foto\'s over twee pagina\'s, zonder bocht in het midden.',
+    shape: 'layflat',
+  },
+];
+
+const styles = [
+  {
+    name: 'Klassiek album',
+    tagline: 'Warme tinten · korte bijschriften',
+    desc: 'Zachte, warme pagina\'s met ruime marges. Bij de foto\'s staat een kort bijschrift of een datum — zoals in een klassiek fotoalbum.',
+  },
+  {
+    name: 'Levensverhaal',
+    tagline: 'Foto\'s met verhalen',
+    desc: 'Voor wie meer wil vertellen: pagina\'s met verhalen en herinneringen naast de foto\'s.',
+  },
+  {
+    name: 'Minimalistisch fotoboek',
+    tagline: 'Wit · strak · foto\'s voorop',
+    desc: 'Witte pagina\'s met grote foto\'s, vaak één per pagina. Bijna geen tekst — de beelden spreken voor zich.',
+  },
+];
+
+const steps = [
+  {
+    title: 'Kies je foto\'s',
+    text: 'Alle foto\'s van de gedenkplek, enkele albums of je eigen selectie. Wij stellen een mooie selectie voor, die je altijd kunt bekijken en aanpassen.',
+  },
+  {
+    title: 'Formaat en stijl',
+    text: 'Zie elk formaat als open boek met je eigen foto\'s, op ware schaal, en blader door een voorbeeld van elke stijl. Je kunt later wisselen zonder iets te verliezen.',
+  },
+  {
+    title: 'Het boek staat klaar',
+    text: 'Van oud naar nieuw, als tijdlijn met hoofdstukken of per album. Pas elke pagina aan in de editor; je werk wordt automatisch bewaard.',
+  },
+  {
+    title: 'Bestel',
+    text: 'Hardcover op fotokwaliteit-papier, gedrukt in Europa. Productie 4–6 werkdagen, daarna verzending 2–7 werkdagen.',
+  },
+];
+---
+
+<BaseLayout
+  title="Het fotoboek — Remoria"
+  description="Maak van de verzamelde herinneringen een tastbaar fotoboek. Kies formaat en stijl met je eigen foto's, vanaf €28,95."
+>
+  <Navbar />
+
+  <main class="fb-page">
+    <section class="fb-hero">
+      <div class="container container--narrow">
+        <p class="eyebrow">Het fotoboek</p>
+        <h1 class="fb-hero__title">Maak het tastbaar</h1>
+        <p class="fb-hero__sub">
+          Bundel de foto's en verhalen van de gedenkplek in een hardcover fotoboek.
+          Je ziet je eigen foto's in elk formaat en elke stijl voor je iets bestelt,
+          met de prijs op maat van jouw boek.
+        </p>
+        <a href="https://app.remoria.eu" class="btn">
+          Maak je fotoboek
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <section class="fb-section">
+      <div class="container">
+        <p class="eyebrow">Zo werkt het</p>
+        <h2 class="section-title">Van gedenkplek tot boek</h2>
+        <ol class="steps">
+          {steps.map((s, i) => (
+            <li class="step">
+              <span class="step__num">{i + 1}</span>
+              <h3 class="step__title">{s.title}</h3>
+              <p class="step__text">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="fb-section fb-section--white">
+      <div class="container">
+        <p class="eyebrow">Formaten</p>
+        <h2 class="section-title">Drie formaten, op dezelfde schaal</h2>
+        <div class="cards">
+          {formats.map((f) => (
+            <article class="card">
+              <div class={`book book--${f.shape}`} aria-hidden="true">
+                <span></span><span></span>
+              </div>
+              <h3 class="card__title">{f.name}</h3>
+              <p class="card__meta">{f.size}</p>
+              <p class="card__desc">{f.desc}</p>
+              <p class="card__price">vanaf <strong>{f.price}</strong></p>
+            </article>
+          ))}
+        </div>
+        <p class="note">
+          Prijzen incl. btw per boek, verzending apart. De prijs hangt af van het aantal pagina's;
+          je ziet de prijs van jouw boek al terwijl je het samenstelt.
+        </p>
+      </div>
+    </section>
+
+    <section class="fb-section">
+      <div class="container">
+        <p class="eyebrow">Stijlen</p>
+        <h2 class="section-title">Een stijl die bij het verhaal past</h2>
+        <div class="cards">
+          {styles.map((s) => (
+            <article class="card">
+              <h3 class="card__title">{s.name}</h3>
+              <p class="card__meta">{s.tagline}</p>
+              <p class="card__desc">{s.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .fb-page {
+    background: #F5F2EC;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: clamp(20px, 5vw, 56px);
+  }
+
+  .container--narrow {
+    max-width: 760px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #C6A24B;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+
+  .fb-hero {
+    padding: clamp(64px, 10vw, 100px) 0 clamp(48px, 7vw, 72px);
+  }
+
+  .fb-hero__title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: #1E293B;
+  }
+
+  .fb-hero__sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #64748B;
+    margin: 20px auto 32px;
+    max-width: 600px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 14px 28px;
+    background: #1E293B;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    border-radius: 999px;
+    transition: background-color 0.2s ease, transform 0.18s ease;
+  }
+
+  .btn:hover {
+    background: #0f172a;
+    transform: translateY(-2px);
+  }
+
+  .fb-section {
+    padding: clamp(64px, 10vw, 96px) 0;
+  }
+
+  .fb-section--white {
+    background: #fff;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.18;
+    color: #1E293B;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .step__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(198, 162, 75, 0.14);
+    color: #C6A24B;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .step__title,
+  .card__title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: #1E293B;
+    margin-bottom: 8px;
+  }
+
+  .step__text,
+  .card__desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.68;
+    color: #64748B;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: #FAF7F2;
+    border: 1px solid rgba(30, 41, 59, 0.05);
+    border-radius: 18px;
+    padding: 28px 24px;
+  }
+
+  .fb-section:not(.fb-section--white) .card {
+    background: #fff;
+    box-shadow: 0 12px 40px rgba(30, 41, 59, 0.06);
+  }
+
+  .card__meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #C6A24B;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .card__desc {
+    flex: 1;
+  }
+
+  .card__price {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #64748B;
+    margin-top: 18px;
+  }
+
+  .card__price strong {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #1E293B;
+    margin-left: 4px;
+  }
+
+  /* Open boek, alle drie op dezelfde schaal (1 cm = 4 px) */
+  .book {
+    display: flex;
+    height: 84px;
+    margin-bottom: 22px;
+    filter: drop-shadow(0 8px 16px rgba(30, 41, 59, 0.12));
+  }
+
+  .book span {
+    background: linear-gradient(135deg, #E9DFC9, #D8C8A4);
+    height: 100%;
+  }
+
+  .book--square span { width: 84px; }
+  .book--landscape span,
+  .book--layflat span { width: 119px; }
+
+  .book--square span:first-child,
+  .book--landscape span:first-child {
+    border-right: 1px solid rgba(30, 41, 59, 0.18);
+    box-shadow: inset -8px 0 10px -8px rgba(30, 41, 59, 0.35);
+  }
+
+  .book--square span:last-child,
+  .book--landscape span:last-child {
+    box-shadow: inset 8px 0 10px -8px rgba(30, 41, 59, 0.35);
+  }
+
+  .note {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #64748B;
+    text-align: center;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 1024px) {
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .cards { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .steps,
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
