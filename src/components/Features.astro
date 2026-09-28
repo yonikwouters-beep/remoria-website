@@ -19,6 +19,7 @@ const features = [
     icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
     title: 'Maak het tastbaar',
     description: 'Bundel herinneringen in een prachtig fotoboek. Een blijvende herinnering die je kunt vasthouden en doorgeven.',
+    href: '/fotoboek',
   },
 ];
 ---
@@ -34,7 +35,7 @@ const features = [
           <div class="feature-card__icon" set:html={f.icon} />
           <h3 class="feature-card__title">{f.title}</h3>
           <p class="feature-card__desc">{f.description}</p>
-          <a href="#" class="feature-card__link">
+          <a href={f.href ?? '#'} class="feature-card__link">
             Meer informatie
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>

@@ -1,0 +1,235 @@
+---
+// AI-wallet — credits per gedenkplek voor fotobewerkingen. Kosten, pakketten en
+// credits per plan volgen src/lib/aiCredits.ts en aiCreditPackPricing.ts in de app.
+export interface Props {
+  /** Toon de losse creditpakketten (Prijzen-pagina). */
+  showPacks?: boolean;
+}
+
+const { showPacks = false } = Astro.props;
+
+const tools = [
+  {
+    title: 'Scherper maken',
+    cost: '1 credit',
+    text: 'Meer detail op scherm en in het fotoboek, ook voor oude of kleine foto\'s.',
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`,
+  },
+  {
+    title: 'Inkleuren',
+    cost: '1 credit',
+    text: 'Zwart-wit- en sepiafoto\'s krijgen weer kleur. Kleurenfoto\'s worden overgeslagen en niet aangerekend.',
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="1.5"/><circle cx="17.5" cy="10.5" r="1.5"/><circle cx="8.5" cy="7.5" r="1.5"/><circle cx="6.5" cy="12.5" r="1.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.6-.7 1.6-1.7 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.7 1.7-1.7H16c3.1 0 5.6-2.5 5.6-5.6C21.9 6 17.5 2 12 2z"/></svg>`,
+  },
+  {
+    title: 'Herstellen',
+    cost: '2 credits',
+    text: 'Krassen, vlekken en vervaging wegwerken op oude afdrukken.',
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+  },
+  {
+    title: '3D-effect',
+    cost: '3 credits',
+    text: 'Een bewegend dieptebeeld van de foto, alsof je er even in kan stappen.',
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+  },
+];
+
+const packs = [
+  { credits: '100', price: '€8' },
+  { credits: '300', price: '€15' },
+  { credits: '500', price: '€20' },
+  { credits: '1000', price: '€35' },
+];
+---
+
+<section class="ai" id="ai-wallet" aria-labelledby="ai-heading">
+  <div class="ai__container">
+    <p class="ai__eyebrow">AI-wallet</p>
+    <h2 class="ai__heading" id="ai-heading">Geef oude foto's een nieuw leven</h2>
+    <p class="ai__sub">
+      Elke gedenkplek heeft een eigen AI-wallet. Met je credits maak je foto's scherper,
+      kleur je zwart-witfoto's in, herstel je beschadigde afdrukken of maak je er een
+      3D-beeld van.
+    </p>
+
+    <div class="ai__grid">
+      {tools.map((t) => (
+        <article class="ai-card">
+          <div class="ai-card__icon" aria-hidden="true" set:html={t.icon} />
+          <h3 class="ai-card__title">{t.title}</h3>
+          <p class="ai-card__cost">{t.cost} per foto</p>
+          <p class="ai-card__text">{t.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="ai__plans">
+      <div><strong>1000</strong><span>credits bij Een Blijvende Herinnering</span></div>
+      <div><strong>500</strong><span>credits bij Samen Koesteren</span></div>
+      <div><strong>10</strong><span>credits om te proberen bij Samen Herinneren</span></div>
+    </div>
+
+    {showPacks && (
+      <p class="ai__packs">
+        Extra credits nodig? Vul je wallet aan per gedenkplek:
+        {packs.map((p) => (
+          <span class="ai__pack">{p.credits} voor {p.price}</span>
+        ))}
+        <span class="ai__packs-note">incl. btw</span>
+      </p>
+    )}
+  </div>
+</section>
+
+<style>
+  .ai {
+    padding: clamp(64px, 10vw, 96px) clamp(20px, 4vw, 40px);
+  }
+
+  .ai__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ai__eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #C6A24B;
+    margin-bottom: 14px;
+  }
+
+  .ai__heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: #1E293B;
+  }
+
+  .ai__sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #64748B;
+    margin: 18px auto 48px;
+    max-width: 640px;
+  }
+
+  .ai__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: left;
+  }
+
+  .ai-card {
+    background: #fff;
+    border: 1px solid rgba(30, 41, 59, 0.05);
+    border-radius: 18px;
+    padding: 26px 22px;
+    box-shadow: 0 12px 40px rgba(30, 41, 59, 0.06);
+  }
+
+  .ai-card__icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: rgba(198, 162, 75, 0.12);
+    color: #C6A24B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .ai-card__title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #1E293B;
+  }
+
+  .ai-card__cost {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #A8832F;
+    margin: 4px 0 10px;
+  }
+
+  .ai-card__text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #64748B;
+  }
+
+  .ai__plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .ai__plans div {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(198, 162, 75, 0.35);
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: #475569;
+  }
+
+  .ai__plans strong {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: #1E293B;
+  }
+
+  .ai__packs {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: #64748B;
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .ai__pack {
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #fff;
+    color: #1E293B;
+    font-weight: 500;
+  }
+
+  .ai__packs-note {
+    font-size: 12px;
+  }
+
+  @media (max-width: 1024px) {
+    .ai__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 720px) {
+    .ai__plans { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 540px) {
+    .ai__grid { grid-template-columns: 1fr; }
+  }
+</style>
